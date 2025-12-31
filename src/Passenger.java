@@ -1,39 +1,42 @@
-public class Passenger {
+public class Passenger extends Person {
 
-    // --- Attributes ---
-    private String name;
     private String passportNumber;
 
-    // --- Constructors ---
-    public Passenger() {
-    }
+    public Passenger() {}
 
     public Passenger(String name, String passportNumber) {
-        this.name = name;
+        super(name);
         this.passportNumber = passportNumber;
-    }
-
-    // --- Getters and Setters ---
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassportNumber() {
         return passportNumber;
     }
 
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
+    @Override
+    public String getRole() {
+        return "Passenger";
     }
 
-    // --- Methods ---
-    public void printInfo() {
-        System.out.println("Passenger → Name: " + name +
-                ", Passport: " + passportNumber);
+    @Override
+    public String toString() {
+        return "Passenger{name='" + name + "', passport='" + passportNumber + "'}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Passenger)) return false;
+
+        Passenger other = (Passenger) obj;
+        return passportNumber.equals(other.passportNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + passportNumber.hashCode();
+        return result;
     }
 }
 

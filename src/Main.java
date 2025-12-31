@@ -2,49 +2,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Flight flight1 = new Flight("FL101", 5);
-        Flight flight2 = new Flight("FL202", 2);
+        Flight f1 = new Flight("FL101", 5);
+        Flight f2 = new Flight("FL202", 2);
+        Flight f3 = new Flight("FL303", 10);
 
-        Passenger passenger1 = new Passenger("Nurgul", "P12345");
-        Passenger passenger2 = new Passenger("Nurislam", "P67890");
+        Passenger p1 = new Passenger("Nurgul", "P12345");
+        Passenger p2 = new Passenger("Nurislam", "P67890");
 
-        Booking booking1 = new Booking(flight1, passenger1);
-        Booking booking2 = new Booking(flight2, passenger2);
+        Booking b1 = new Booking(f1, p1);
+        Booking b2 = new Booking(f2, p2);
 
-        System.out.println("=== FLIGHTS & PASSENGERS ===");
-        flight1.printInfo();
-        flight2.printInfo();
-        passenger1.printInfo();
-        passenger2.printInfo();
-
-        System.out.println("\n=== FLIGHT COMPARISON ===");
-
-        if (flight1.getAvailableSeats() > flight2.getAvailableSeats()) {
-            System.out.println("Flight 1 has more available seats than Flight 2.");
-        } else if (flight1.getAvailableSeats() < flight2.getAvailableSeats()) {
-            System.out.println("Flight 2 has more available seats than Flight 1.");
-        } else {
-            System.out.println("Both flights have the same number of seats.");
-        }
-
-        System.out.println("\n=== CONFIRM BOOKINGS ===");
-        booking1.confirmBooking();
-        booking2.confirmBooking();
-
-        flight1.printInfo();
-        flight2.printInfo();
-
-        System.out.println("\n=== LOOP THROUGH FLIGHTS ===");
-
-        Flight[] flights = { flight1, flight2 };
-        int totalSeats = 0;
+        Flight[] flights = { f1, f2, f3 };
 
         for (int i = 0; i < flights.length; i++) {
-            int seats = flights[i].getAvailableSeats();
-            System.out.println("Flight " + (i + 1) + " seats: " + seats);
-            totalSeats += seats;
+            if (flights[i].getFlightNumber().equals("FL202")) {
+                System.out.println("Found flight: " + flights[i]);
+            }
         }
 
-        System.out.println("Total available seats: " + totalSeats);
+        System.out.println("\nFlights with more than 3 seats:");
+        for (int i = 0; i < flights.length; i++) {
+            if (flights[i].getAvailableSeats() > 3) {
+                System.out.println(flights[i]);
+            }
+        }
+
+        for (int i = 0; i < flights.length - 1; i++) {
+            for (int j = 0; j < flights.length - 1 - i; j++) {
+                if (flights[j].getAvailableSeats() > flights[j + 1].getAvailableSeats()) {
+                    Flight temp = flights[j];
+                    flights[j] = flights[j + 1];
+                    flights[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("\nSorted flights:");
+        for (int i = 0; i < flights.length; i++) {
+            System.out.println(flights[i]);
+        }
+
+        b1.confirmBooking();
+        b2.confirmBooking();
     }
 }
