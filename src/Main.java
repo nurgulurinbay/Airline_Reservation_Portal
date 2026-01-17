@@ -1,3 +1,6 @@
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -44,5 +47,20 @@ public class Main {
 
         b1.confirmBooking();
         b2.confirmBooking();
+        FlightDAO dao = new FlightDAO();
+
+        // CREATE
+        dao.addFlight("KZ123", 50);
+
+        // READ
+        System.out.println("All flights:");
+        dao.getAllFlights().forEach(System.out::println);
+        // UPDATE
+        dao.updateSeats(1, 45);
+
+        // DELETE
+        dao.deleteFlight(1);
+        }
     }
-}
+
+
